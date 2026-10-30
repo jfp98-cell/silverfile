@@ -382,7 +382,7 @@ The Orchestrator's own notes explain the choice of topology:
 └── demo/                        eval cases, demo W-2 images, answer and form files
 ```
 
-Still to add: `docs/graph.png` and the demo video.
+Still to add: the demo video.
 
 ## More detail
 
