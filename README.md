@@ -300,6 +300,16 @@ Orchestrator (loop guard, bounded review loop, human review, resuming after a re
 eval cases end to end, and the dashboard driven headlessly. See
 [docs/INTEGRATION_TEST_REPORT.md](docs/INTEGRATION_TEST_REPORT.md) for the latest run.
 
+## Context-window measurement
+
+```bash
+python run.py batch --compare                 # strategy off and on; writes docs/metrics.md
+python run.py batch --no-context-strategy     # one run with the whole transcript kept
+```
+
+Runs 10 returns one after another through the full graph (no API key needed) and records each
+item's input context with and without the strategy. Results: [docs/metrics.md](docs/metrics.md).
+
 ## Orchestration
 
 Hub and spoke: only the Orchestrator chooses the next step, and every agent hands control back
@@ -372,8 +382,7 @@ The Orchestrator's own notes explain the choice of topology:
 └── demo/                        eval cases, demo W-2 images, answer and form files
 ```
 
-Still to add: `docs/graph.png`, `docs/metrics.md` numbers (context-window strategy) and the demo
-video.
+Still to add: `docs/graph.png` and the demo video.
 
 ## More detail
 

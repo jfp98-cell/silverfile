@@ -9,8 +9,8 @@
     python run.py session            run (or resume) a whole session in the terminal: W-2 upload,
                                      typed-in forms, interview, every agent, draft Form 1040-SR
     python run.py dashboard          the Streamlit dashboard, for taxpayers and Kushim preparers
-
-Still to add: the batch run with --no-context-strategy.
+    python run.py batch              the context-window batch (add --no-context-strategy, or
+                                     --compare to run both and write docs/metrics.md)
 """
 
 import argparse
@@ -27,6 +27,11 @@ def main(argv: list[str] | None = None) -> None:
         from app.cli import main as run_session
 
         run_session(argv[1:])
+        return
+    if argv[:1] == ["batch"]:  # same: --no-context-strategy and --compare are its own options
+        from app.batch import main as run_batch
+
+        run_batch(argv[1:])
         return
     parser = argparse.ArgumentParser(
         prog="run.py",
@@ -61,6 +66,9 @@ def main(argv: list[str] | None = None) -> None:
     review.add_argument("--db", default=None, help="SQLite file for saved sessions")
     commands.add_parser(
         "session", help="run or resume a whole session in the terminal (see run.py session --help)"
+    )
+    commands.add_parser(
+        "batch", help="context-window batch: 10 returns, --no-context-strategy, --compare (see run.py batch --help)"
     )
     dashboard = commands.add_parser(
         "dashboard", help="start the Streamlit dashboard (taxpayer and preparer views)"
